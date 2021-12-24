@@ -1,0 +1,26 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'top.horizonask'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+//    mavenCentral()
+    maven{url 'https://maven.aliyun.com/nexus/content/groups/public/'}
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'cn.hutool:hutool-all:5.7.17'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation "org.springframework.boot:spring-boot-devtools"
+}
+
+test {
+    useJUnitPlatform()
+}
