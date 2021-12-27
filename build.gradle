@@ -19,6 +19,9 @@ dependencies {
     implementation 'cn.hutool:hutool-all:5.7.17'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation "org.springframework.boot:spring-boot-devtools"
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.3.4'
+    implementation "mysql:mysql-connector-java"
+    compileOnly "org.projectlombok:lombok"
 }
 
 test {
