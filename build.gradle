@@ -8,22 +8,38 @@ group = 'top.horizonask'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+bootJar {
+    mainClass.set('top.horizonask.hoawiki.HoawikiApplication')
+}
+
 repositories {
 //    mavenCentral()
     maven{url 'https://maven.aliyun.com/nexus/content/groups/public/'}
+    mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    implementation 'cn.hutool:hutool-all:5.7.17'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation "org.springframework.boot:spring-boot-devtools"
-    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.3.4'
-    implementation "mysql:mysql-connector-java"
-    compileOnly "org.projectlombok:lombok"
+    implementation project(':hoawiki-api')
+    implementation project(':hoawiki-core')
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
     useJUnitPlatform()
+}
+
+subprojects {
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java'
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        implementation 'cn.hutool:hutool-all:5.7.17'
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation "org.springframework.boot:spring-boot-devtools"
+    }
 }
