@@ -1,3 +1,2 @@
 rootProject.name = 'hoawiki'
-include 'hoawiki-authentication', 'hoawiki-core','hoawiki-api'
 
