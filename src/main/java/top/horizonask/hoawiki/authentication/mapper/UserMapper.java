@@ -37,7 +37,7 @@ public interface UserMapper extends BaseMapper<User> {
             "SELECT roles.role_id " +
             "FROM roles, users_role,users " +
             "WHERE roles.role_id = users_role.role_id " +
-            "AND users.user_id = users_role.user_id" +
+            "AND users.user_id = users_role.user_id " +
             "AND users.user_id = #{userId}" +
             ")"
     )
