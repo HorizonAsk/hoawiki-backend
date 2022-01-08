@@ -1,6 +1,5 @@
 package top.horizonask.hoawiki.authentication.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.authentication.mapper.RoleMapper;
 import top.horizonask.hoawiki.authentication.mapper.UserMapper;
-import top.horizonask.hoawiki.authentication.security.JWTConfig;
 import top.horizonask.hoawiki.authentication.security.JWTTokenUtil;
 import top.horizonask.hoawiki.common.request.LoginRequest;
 import top.horizonask.hoawiki.authentication.security.services.UserDetailsImpl;
@@ -25,7 +23,7 @@ import javax.validation.Valid;
  */
 
 @RestController
-@RequestMapping()
+@RequestMapping("/auth/user")
 public class UserAuthController {
     final
     AuthenticationManager authenticationManager;

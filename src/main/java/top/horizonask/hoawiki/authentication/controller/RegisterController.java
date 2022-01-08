@@ -2,6 +2,7 @@ package top.horizonask.hoawiki.authentication.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.horizonask.hoawiki.common.ResponseUtils;
@@ -11,6 +12,8 @@ import top.horizonask.hoawiki.authentication.entity.UsersRole;
 import top.horizonask.hoawiki.authentication.mapper.UserMapper;
 import top.horizonask.hoawiki.authentication.mapper.UsersRoleMapper;
 
+import javax.validation.Valid;
+
 /**
  * @description:
  * @author: Yanbo Han
@@ -19,7 +22,7 @@ import top.horizonask.hoawiki.authentication.mapper.UsersRoleMapper;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/register")
+@RequestMapping(value ="/auth/user")
 public class RegisterController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -34,15 +37,12 @@ public class RegisterController {
         this.usersRoleMapper = usersRoleMapper;
     }
 
-    @RequestMapping("/user")
-    public ResponseUtils user(String username, String Email, String password){
+    @RequestMapping("/register")
+    public ResponseUtils user(@Valid @RequestBody RegisterRequest registerRequest){
         User user = new User();
-        user.setEmail(Email);
-        user.setUsername(username);
-        user.setPassword(bCryptPasswordEncoder.encode(password));
-        log.info(username);
-        log.info(Email);
-        log.info(password);
+        user.setEmail(registerRequest.getUserEmail());
+        user.setUsername(registerRequest.getUserName());
+        user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
         userMapper.insert(user);
 
         UsersRole usersRole = new UsersRole();

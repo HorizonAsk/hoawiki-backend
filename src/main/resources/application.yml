@@ -20,4 +20,4 @@ jwt:
   tokenHeader: Authorization
   tokenPrefix: Bearer
   expiration: 86400
-  antMatchers: /login/**,/register/**,/static/**, /message
+  antMatchers: /auth/user/login/**,/auth/user/register/**,/static/**, /message

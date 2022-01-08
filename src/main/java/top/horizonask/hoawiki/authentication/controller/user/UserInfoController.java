@@ -2,10 +2,8 @@ package top.horizonask.hoawiki.authentication.controller.user;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import top.horizonask.hoawiki.authentication.common.ApiResponse;
+import org.springframework.web.bind.annotation.*;
+import top.horizonask.hoawiki.common.ApiResponse;
 import top.horizonask.hoawiki.authentication.entity.Permission;
 import top.horizonask.hoawiki.authentication.entity.Role;
 import top.horizonask.hoawiki.authentication.entity.User;
@@ -18,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class UserController {
+@RequestMapping(value ="/auth/user")
+public class UserInfoController {
 
     UserMapper userMapper;
 
@@ -26,13 +25,13 @@ public class UserController {
 
     PermissionMapper permissionMapper;
 
-    public UserController(UserMapper userMapper, RoleMapper roleMapper, PermissionMapper permissionMapper) {
+    public UserInfoController(UserMapper userMapper, RoleMapper roleMapper, PermissionMapper permissionMapper) {
         this.userMapper = userMapper;
         this.roleMapper = roleMapper;
         this.permissionMapper = permissionMapper;
     }
 
-    @RequestMapping("/user/search/{id}")
+    @RequestMapping("/{id}")
     public ApiResponse userSelfInfoApi(@PathVariable Long id) {
         User user = userMapper.selectById(id);
         if (user == null) {
@@ -48,7 +47,7 @@ public class UserController {
         return res;
     }
 
-    @RequestMapping("/user/permission")
+    @GetMapping("/info/permission")
     public ApiResponse userSelfPermissionInfoApi() {
         UserDetailsImpl userDetailsImpl = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userMapper.selectById(userDetailsImpl.getUserId());
@@ -73,7 +72,7 @@ public class UserController {
     }
 
     @PreAuthorize(value="hasRole('user')")
-    @RequestMapping("/user/name/{username}")
+    @RequestMapping("/search/{username}")
     public ApiResponse userSearchApi(@PathVariable String username) {
         List<User> userList = userMapper.findByUsername(username);
         if (userList.size() == 0) {
