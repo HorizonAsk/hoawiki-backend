@@ -1,28 +1,30 @@
-package top.horizonask.hoawiki.authentication.common;
+package top.horizonask.hoawiki.common;
 
 import cn.hutool.json.JSONUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.http.HttpStatus;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
 @Data
 public class ApiResponse implements Serializable {
+    /**
+     * Api Server StatusCode, see `ApiStatus`.
+     **/
+    @Getter(AccessLevel.MODULE)
+    private ApiStatus apiStatus;
 
-//    private static final long serialVersionUID = 8993485788201922830L;
+    public Integer getApiCode(){
+        return this.apiStatus.getCode();
+    }
 
     /**
      * Response success or not.
      */
     private Boolean success;
-
-    /**
-     * Response Code.
-     * 200: Normal;
-     * 500: Exception.
-     */
-    private Integer code;
 
     /**
      * Response Message
@@ -48,12 +50,12 @@ public class ApiResponse implements Serializable {
      * Private Constructor
      *
      * @param success
-     * @param code
+     * @param apiStatus
      * @param message
      */
-    private ApiResponse(Boolean success, Integer code, String message) {
+    private ApiResponse(Boolean success, ApiStatus apiStatus, String message) {
         this.success = success;
-        this.code = code;
+        this.apiStatus = apiStatus;
         this.message = message;
     }
 
@@ -63,19 +65,18 @@ public class ApiResponse implements Serializable {
      * @return Success ApiResponse 200
      */
     public static ApiResponse ok() {
-        return new ApiResponse(true, HttpStatus.HTTP_OK, "success");
+        return new ApiResponse(true, ApiStatus.API_RESPONSE_SUCCESS, ApiStatus.API_RESPONSE_SUCCESS.getMessage());
     }
 
     /**
      * Custom success response
      *
-     * @param success
-     * @param code
+     * @param apiStatus
      * @param message
      * @return Custom Success ApiResponse
      */
-    public static ApiResponse ok(Boolean success, Integer code, String message) {
-        return new ApiResponse(success, code, message);
+    public static ApiResponse ok(ApiStatus apiStatus, String message) {
+        return new ApiResponse(true, apiStatus, message);
     }
 
     /**
@@ -84,19 +85,18 @@ public class ApiResponse implements Serializable {
      * @return Failed ApiResponse 500
      */
     public static ApiResponse error() {
-        return new ApiResponse(false, HttpStatus.HTTP_INTERNAL_ERROR, "error");
+        return new ApiResponse(false, ApiStatus.API_RESPONSE_ERROR, ApiStatus.API_RESPONSE_ERROR.getMessage());
     }
 
     /**
      * Custom failed response
      *
-     * @param success
-     * @param code
+     * @param apiStatus
      * @param message
      * @return Custom Failed ApiResponse
      */
-    public static ApiResponse error(Boolean success, Integer code, String message) {
-        return new ApiResponse(success, code, message);
+    public static ApiResponse error(ApiStatus apiStatus, String message) {
+        return new ApiResponse(false, apiStatus, message);
     }
 
     /**
@@ -113,11 +113,12 @@ public class ApiResponse implements Serializable {
     /**
      * 自定义响应状态码
      *
-     * @param code 响应状态码
+     * @param apiStatus 响应状态类
      * @return 当前实例对象
      */
-    public ApiResponse code(Integer code) {
-        this.setCode(code);
+    public ApiResponse apiStatus(ApiStatus apiStatus) {
+        this.setApiStatus(apiStatus);
+        this.message = this.apiStatus.getMessage();
         return this;
     }
 
@@ -165,5 +166,15 @@ public class ApiResponse implements Serializable {
     public ApiResponse accumulate(String key, Object value) {
         this.data.accumulate(key, value);
         return this;
+    }
+
+    @Override
+    public String toString() {
+        JSONObject resultJson = JSONUtil.createObj();
+        resultJson
+                .set("apiCode", this.getApiStatus().getCode())
+                .set("message", this.getApiStatus().getMessage())
+                .putAll(this.data);
+        return JSONUtil.toJsonStr(resultJson);
     }
 }

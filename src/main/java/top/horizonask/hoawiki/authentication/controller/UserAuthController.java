@@ -7,12 +7,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import top.horizonask.hoawiki.authentication.common.ResponseUtils;
+import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.authentication.mapper.RoleMapper;
 import top.horizonask.hoawiki.authentication.mapper.UserMapper;
 import top.horizonask.hoawiki.authentication.security.JWTConfig;
 import top.horizonask.hoawiki.authentication.security.JWTTokenUtil;
-import top.horizonask.hoawiki.authentication.security.payload.request.LoginRequest;
+import top.horizonask.hoawiki.common.request.LoginRequest;
 import top.horizonask.hoawiki.authentication.security.services.UserDetailsImpl;
 import top.horizonask.hoawiki.authentication.security.services.UserDetailsServiceImpl;
 

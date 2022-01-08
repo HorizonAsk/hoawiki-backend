@@ -1,4 +1,4 @@
-package top.horizonask.hoawiki.authentication.common;
+package top.horizonask.hoawiki.common;
 
 public interface IStatus {
     Integer getCode();

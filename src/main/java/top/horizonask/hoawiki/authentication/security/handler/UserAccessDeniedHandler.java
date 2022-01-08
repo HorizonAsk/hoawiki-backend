@@ -1,6 +1,7 @@
 package top.horizonask.hoawiki.authentication.security.handler;
 
-import top.horizonask.hoawiki.authentication.common.ResponseUtils;
+import top.horizonask.hoawiki.common.ApiStatus;
+import top.horizonask.hoawiki.common.ResponseUtils;
 import cn.hutool.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -23,6 +24,6 @@ public class UserAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ResponseUtils.responseJson(response,ResponseUtils.response(HttpStatus.HTTP_FORBIDDEN,"Access Denied.",accessDeniedException.getMessage()));
+        ResponseUtils.responseJson(response,ResponseUtils.response(false,ApiStatus.API_RESPONSE_ACCESS_DENIED,accessDeniedException.getMessage()));
     }
 }

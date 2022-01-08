@@ -1,24 +1,11 @@
-package top.horizonask.hoawiki.authentication.common.exception;
+package top.horizonask.hoawiki.common.exception;
 
 import cn.hutool.http.HttpStatus;
+import lombok.Data;
+import top.horizonask.hoawiki.common.ApiStatus;
 
+@Data
 public class GlobalException extends RuntimeException{
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
 
     /**
      * Exception message, for http response.
@@ -28,7 +15,7 @@ public class GlobalException extends RuntimeException{
     /**
      * Exception code, for http response. Default 500.
      */
-    private Integer code = HttpStatus.HTTP_INTERNAL_ERROR;
+    private ApiStatus apiStatus = ApiStatus.API_RESPONSE_ERROR;
 
     /**
      * Default Constructor based on exception message.
@@ -42,12 +29,12 @@ public class GlobalException extends RuntimeException{
     /**
      * Default Constructor based on exception message and code.
      * @param message 异常信息
-     * @param code 响应状态码
+     * @param apiStatus 响应状态码
      */
-    public GlobalException(String message, Integer code) {
+    public GlobalException(String message, ApiStatus apiStatus) {
         super(message);
         this.message = message;
-        this.code = code;
+        this.apiStatus = apiStatus;
     }
 
     /**
@@ -63,12 +50,12 @@ public class GlobalException extends RuntimeException{
     /**
      * 根据异常信息，响应状态码，异常对象构建 一个异常实例对象
      * @param message 异常信息
-     * @param code 响应状态码
+     * @param apiStatus 响应状态码
      * @param e 异常对象
      */
-    public GlobalException(String message, Integer code, Throwable e) {
+    public GlobalException(String message, ApiStatus apiStatus, Throwable e) {
         super(message, e);
         this.message = message;
-        this.code = code;
+        this.apiStatus = apiStatus;
     }
 }
