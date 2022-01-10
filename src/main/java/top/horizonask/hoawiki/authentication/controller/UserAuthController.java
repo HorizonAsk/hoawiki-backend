@@ -17,7 +17,7 @@ import top.horizonask.hoawiki.authentication.security.services.UserDetailsServic
 import javax.validation.Valid;
 
 /**
- * @description:
+ * @description: Spring-boot Controller of user authentication
  * @author: Yanbo Han
  * @time: 2022/1/2 17:23
  */
@@ -28,24 +28,24 @@ public class UserAuthController {
     final
     AuthenticationManager authenticationManager;
 
-    final
-    UserMapper userMapper;
+//    final
+//    UserMapper userMapper;
 
     UserDetailsServiceImpl userDetailsServiceImpl;
 
-    final
-    RoleMapper roleMapper;
+//    final
+//    RoleMapper roleMapper;
 
     public UserAuthController(AuthenticationManager authenticationManager, UserMapper userMapper, UserDetailsServiceImpl userDetailsServiceImpl, RoleMapper roleMapper, PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
-        this.userMapper = userMapper;
+//        this.userMapper = userMapper;
         this.userDetailsServiceImpl = userDetailsServiceImpl;
-        this.roleMapper = roleMapper;
-        this.passwordEncoder = passwordEncoder;
+//        this.roleMapper = roleMapper;
+//        this.passwordEncoder = passwordEncoder;
     }
 
-    final
-    PasswordEncoder passwordEncoder;
+//    final
+//    PasswordEncoder passwordEncoder;
 
 
     @PostMapping("/login")
