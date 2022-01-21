@@ -47,6 +47,7 @@ dependencies {
             'io.jsonwebtoken:jjwt-jackson:0.11.2'
     implementation 'org.springframework.boot:spring-boot-starter-security:2.6.2'
     implementation "javax.validation:validation-api"
+    implementation "org.springframework.boot:spring-boot-starter-mail"
 }
 
 docker {

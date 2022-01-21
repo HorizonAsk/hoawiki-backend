@@ -9,6 +9,26 @@ spring:
     url: jdbc:mysql://${MYSQL_ADDRESS}/spring-test?characterEncoding=utf8&serverTimezone=GMT%2B8
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
+  mail:
+    host: ${SMTP_HOST}
+    properties:
+      mail:
+        smtp:
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    jndi-name: mail/Session
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    default-encoding: UTF-8
+
+mail:
+  domain: ${MAIL_DOMAIN}
+  from: ${spring.mail.username}@${mail.domain}
 
 mybatis-plus:
   type-enums-package: package top.horizonask.hoawiki.authentication.entity
@@ -20,4 +40,4 @@ jwt:
   tokenHeader: Authorization
   tokenPrefix: Bearer
   expiration: 86400
-  antMatchers: /auth/user/login/**,/auth/user/register/**,/static/**, /message
+  antMatchers: /auth/user/login/**,/auth/user/register/**,/static/**,/message

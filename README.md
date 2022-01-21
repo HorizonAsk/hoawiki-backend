@@ -51,6 +51,11 @@
 MYSQL_ADDRESS=localhost:3306
 MYSQL_USERNAME=spring-debug
 MYSQL_PASSWORD=spring-debug
+SMTP_HOST // 如smtp.someemail.com；
+SMTP_USERNAME // 不包含@及其后缀；
+SMTP_PASSWORD // 邮件服务器用于认证的密码或token；
+MAIL_DOMAIN // 如someemail.com，用于和SMTP_USERNAME组合生成发件人地址信息`SMTP_USERNAME@MAIL_DOMAIN`；
+
 ```
 
 > 注：您应当根据数据库的实际情况进行修改，具体见[关于数据库](#关于数据库)部分。
@@ -76,6 +81,13 @@ MYSQL_PASSWORD=spring-debug
     - `mybatis-migrations\bin\migrate.cmd up` 执行所有未执行的migration
     - `mybatis-migrations\bin\migrate.cmd down 1` 撤销1次migration
     - `mybatis-migrations\bin\migrate.cmd new demo` 建立一个名为demo的新migration
+
+### 关于邮件服务
+项目目前调用外部邮件服务器完成邮件发送，务必设置如下程序环境变量：
+- `SMTP_HOST`：如smtp.someemail.com；
+- `SMTP_USERNAME`：不包含@及其后缀；
+- `PASSWORD`：邮件服务器用于认证的密码或token；
+- `MAIL_DOMAIN`：如someemail.com，用于和SMTP_USERNAME组合生成发件人地址信息`SMTP_USERNAME@MAIL_DOMAIN`；
 
 ## 约定
 
