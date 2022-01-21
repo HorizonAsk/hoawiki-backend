@@ -49,6 +49,7 @@
 
 ```
 MYSQL_ADDRESS=localhost:3306
+MYSQL_SCHEMA=spring-test
 MYSQL_USERNAME=spring-debug
 MYSQL_PASSWORD=spring-debug
 SMTP_HOST // 如smtp.someemail.com；

@@ -1,13 +1,2 @@
 {
-  "properties": [
-    {
-      "name": "hoawiki.app.jwtSecret",
-      "type": "java.lang.String",
-      "description": "Secret Token for hoawiki.app.jwtSecret."
-    },
-    {
-      "name": "jwt.tokenHeader",
-      "type": "java.lang.String",
-      "description": "Description for jwt.tokenHeader."
-    }
-  ] }
+  "properties": [] }
