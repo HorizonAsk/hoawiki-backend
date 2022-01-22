@@ -1,5 +1,6 @@
 package top.horizonask.hoawiki.authorization.controller;
 
+import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,12 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsImpl;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsServiceImpl;
 import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.common.request.LoginRequest;
+
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -49,7 +53,7 @@ public class UserAuthControllerTest {
         loginRequest.setUserEmail("user@user.com");
         loginRequest.setPassword("password");
 
-        ResponseUtils responseUtils = userAuthController.authenticateUser(loginRequest);
-        assertEquals(responseUtils.getApiCode(), 10200);
+        ResponseEntity<JSONObject> responseUtils = userAuthController.authenticateUser(loginRequest);
+        assertEquals(Objects.requireNonNull(responseUtils.getBody()).get("apiCode"), 10200);
     }
 }

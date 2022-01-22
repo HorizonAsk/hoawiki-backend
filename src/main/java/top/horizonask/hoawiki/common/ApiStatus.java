@@ -17,10 +17,18 @@ public enum ApiStatus implements IStatus {
      */
     API_RESPONSE_ERROR(10500, "操作异常！", HttpStatus.HTTP_INTERNAL_ERROR),
 
+    // 详细
+
+    // 用户注册、登录和权限
     /**
      * 退出成功！
      */
     API_RESPONSE_LOGOUT(10200, "退出成功！"),
+
+    /**
+     * 退出成功！
+     */
+    API_RESPONSE_USER_CREATED(10200, "用户创建成功！", HttpStatus.HTTP_CREATED),
 
     /**
      * 请先登录！
@@ -31,31 +39,6 @@ public enum ApiStatus implements IStatus {
      * 暂无权限访问！
      */
     API_RESPONSE_ACCESS_DENIED(10403, "权限不足！", HttpStatus.HTTP_FORBIDDEN),
-
-    /**
-     * 请求不存在！
-     */
-    API_RESPONSE_REQUEST_NOT_FOUND(10404, "请求不存在！", HttpStatus.HTTP_NOT_FOUND),
-
-    /**
-     * 请求方式不支持！
-     */
-    API_RESPONSE_HTTP_BAD_METHOD(10405, "请求方式不支持！", HttpStatus.HTTP_BAD_METHOD),
-
-    /**
-     * 请求异常！
-     */
-    API_RESPONSE_BAD_REQUEST(10400, "请求异常！", HttpStatus.HTTP_BAD_REQUEST),
-
-    /**
-     * 参数不匹配！
-     */
-    API_RESPONSE_PARAM_NOT_MATCH(10400, "参数不匹配！", HttpStatus.HTTP_BAD_REQUEST),
-
-    /**
-     * 参数不能为空！
-     */
-    API_RESPONSE_PARAM_NOT_NULL(10400, "参数不能为空！", HttpStatus.HTTP_BAD_REQUEST),
 
     /**
      * 当前用户已被锁定，请联系管理员解锁！
@@ -85,22 +68,57 @@ public enum ApiStatus implements IStatus {
     /**
      * 无法手动踢出自己，请尝试退出登录操作！
      */
-    API_RESPONSE_KICKOUT_SELF(15004, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR);
+    API_RESPONSE_KICKOUT_SELF(15004, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR),
+
+    // 内容请求
+
+    /**
+     * 请求不存在！
+     */
+    API_RESPONSE_REQUEST_NOT_FOUND(10404, "请求不存在！", HttpStatus.HTTP_NOT_FOUND),
+
+    /**
+     * 请求方式不支持！
+     */
+    API_RESPONSE_HTTP_BAD_METHOD(10405, "请求方式不支持！", HttpStatus.HTTP_BAD_METHOD),
+
+    /**
+     * 请求异常！
+     */
+    API_RESPONSE_BAD_REQUEST(10400, "请求异常！", HttpStatus.HTTP_BAD_REQUEST),
+
+    /**
+     * 参数不匹配！
+     */
+    API_RESPONSE_PARAM_NOT_MATCH(10400, "参数不匹配！", HttpStatus.HTTP_BAD_REQUEST),
+
+    /**
+     * 参数不能为空！
+     */
+    API_RESPONSE_PARAM_NOT_NULL(10400, "参数不能为空！", HttpStatus.HTTP_BAD_REQUEST),
+
+
+
+    // 客户端数据不可用
+    /**
+     * 用户已存在！
+     */
+    API_RESPONSE_USER_EXISTED(15005, "用户已存在！", HttpStatus.HTTP_FORBIDDEN);
 
     /**
      * 状态码
      */
-    private Integer code;
+    private final Integer code;
 
     /**
      * 返回信息
      */
-    private String message;
+    private final String message;
 
     /**
      * http状态码
      **/
-    private Integer httpStatusCode;
+    private final Integer httpStatusCode;
 
     ApiStatus(Integer code, String message) {
         this.code = code;

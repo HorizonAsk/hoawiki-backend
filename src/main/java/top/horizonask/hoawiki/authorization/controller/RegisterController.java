@@ -1,16 +1,18 @@
 package top.horizonask.hoawiki.authorization.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.horizonask.hoawiki.common.ResponseUtils;
-import top.horizonask.hoawiki.common.request.RegisterRequest;
 import top.horizonask.hoawiki.authorization.entity.User;
 import top.horizonask.hoawiki.authorization.entity.UsersRole;
 import top.horizonask.hoawiki.authorization.mapper.UserMapper;
 import top.horizonask.hoawiki.authorization.mapper.UsersRoleMapper;
+import top.horizonask.hoawiki.common.ApiStatus;
+import top.horizonask.hoawiki.common.ResponseUtils;
+import top.horizonask.hoawiki.common.request.RegisterRequest;
 
 import javax.validation.Valid;
 
@@ -22,7 +24,7 @@ import javax.validation.Valid;
 
 @Slf4j
 @RestController
-@RequestMapping(value ="/auth/user")
+@RequestMapping(value = "/auth/user")
 public class RegisterController {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -38,7 +40,7 @@ public class RegisterController {
     }
 
     @RequestMapping("/register")
-    public ResponseUtils user(@Valid @RequestBody RegisterRequest registerRequest){
+    public ResponseEntity<ResponseUtils> user(@Valid @RequestBody RegisterRequest registerRequest) {
         User user = new User();
         user.setEmail(registerRequest.getUserEmail());
         user.setUsername(registerRequest.getUserName());
@@ -50,6 +52,6 @@ public class RegisterController {
         usersRole.setRoleId(2L); // TODO: make ordinary user registration more elegant.
         usersRoleMapper.insert(usersRole);
 
-        return ResponseUtils.success(user.getJson());
+        return ResponseUtils.success(ApiStatus.API_RESPONSE_USER_CREATED, user.getJson()).toResponseEntity();
     }
 }

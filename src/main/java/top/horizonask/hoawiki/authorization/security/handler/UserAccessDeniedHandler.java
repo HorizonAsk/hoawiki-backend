@@ -22,7 +22,7 @@ public class UserAccessDeniedHandler implements AccessDeniedHandler {
 
 
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-        ResponseUtils.responseJson(response,ResponseUtils.response(false,ApiStatus.API_RESPONSE_ACCESS_DENIED,accessDeniedException.getMessage()));
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) {
+        ResponseUtils.responseJson(response,ResponseUtils.response(ApiStatus.API_RESPONSE_ACCESS_DENIED));
     }
 }

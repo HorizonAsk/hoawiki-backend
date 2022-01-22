@@ -2,8 +2,10 @@ package top.horizonask.hoawiki.common.exception;
 
 import cn.hutool.http.HttpStatus;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import top.horizonask.hoawiki.common.ApiStatus;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class GlobalException extends RuntimeException{
 

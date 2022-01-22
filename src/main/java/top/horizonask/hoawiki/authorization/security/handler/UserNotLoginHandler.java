@@ -21,7 +21,7 @@ import java.io.IOException;
 public class UserNotLoginHandler implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ResponseUtils.responseJson(response, ResponseUtils.response(false,ApiStatus.API_RESPONSE_UNAUTHORIZED, authException.getMessage()));
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
+        ResponseUtils.responseJson(response, ResponseUtils.response(ApiStatus.API_RESPONSE_UNAUTHORIZED));
     }
 }

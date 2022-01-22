@@ -1,5 +1,7 @@
 package top.horizonask.hoawiki.authorization.controller;
 
+import cn.hutool.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,7 +42,7 @@ public class UserAuthController {
 
 
     @PostMapping("/login")
-    public ResponseUtils authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<JSONObject> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUserEmail(), loginRequest.getPassword())
         );
@@ -49,7 +51,7 @@ public class UserAuthController {
         UserDetailsImpl userDetailsImpl = userDetailsServiceImpl.loadUserByUsername(loginRequest.getUserEmail());
         String jwt = JWTTokenUtil.createAccessToken(userDetailsImpl);
 
-        return ResponseUtils.success(jwt);
+        return ResponseUtils.success().data("jwt",jwt).toResponseEntity();
     }
 
 
