@@ -1,8 +1,12 @@
 package top.horizonask.hoawiki.authorization.controller;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,18 +44,31 @@ public class RegisterController {
     }
 
     @RequestMapping("/register")
-    public ResponseEntity<ResponseUtils> user(@Valid @RequestBody RegisterRequest registerRequest) {
-        User user = new User();
-        user.setEmail(registerRequest.getUserEmail());
-        user.setUsername(registerRequest.getUserName());
-        user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
-        userMapper.insert(user);
+    public ResponseEntity<JSONObject> user(@Valid @RequestBody RegisterRequest registerRequest, BindingResult validResult) {
+        if (validResult.hasErrors()) {
+            ResponseUtils responseUtils = ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD);
+            for (FieldError error : validResult.getFieldErrors()) {
+                responseUtils.accumulate("error", JSONUtil.createObj().set(error.getField(), error.getDefaultMessage()));
+            }
+            return responseUtils.toResponseEntity();
+        }
+        String email = registerRequest.getUserEmail();
+        String username = registerRequest.getUserName();
+        if (userMapper.findByEmail(email) == null) {
+            User user = new User();
+            user.setEmail(email);
+            user.setUsername(username);
+            user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
+            userMapper.insert(user);
 
-        UsersRole usersRole = new UsersRole();
-        usersRole.setUserId(user.getUserId());
-        usersRole.setRoleId(2L); // TODO: make ordinary user registration more elegant.
-        usersRoleMapper.insert(usersRole);
+            UsersRole usersRole = new UsersRole();
+            usersRole.setUserId(user.getUserId());
+            usersRole.setRoleId(2L); // TODO: make ordinary user registration more elegant.
+            usersRoleMapper.insert(usersRole);
 
-        return ResponseUtils.success(ApiStatus.API_RESPONSE_USER_CREATED, user.getJson()).toResponseEntity();
+            return ResponseUtils.success(ApiStatus.API_RESPONSE_USER_CREATED, user.getJson()).toResponseEntity();
+        } else {
+            return ResponseUtils.fail(ApiStatus.API_RESPONSE_USER_EXISTED).toResponseEntity();
+        }
     }
 }

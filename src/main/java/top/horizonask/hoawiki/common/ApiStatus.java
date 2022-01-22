@@ -7,103 +7,105 @@ import lombok.Getter;
 
 @Getter
 public enum ApiStatus implements IStatus {
+
+
+    // 操作成功 20XXX
     /**
      * 操作成功！
      */
-    API_RESPONSE_SUCCESS(10200, "操作成功！"),
+    API_RESPONSE_SUCCESS(20000, "操作成功！"),
 
+    // 新增数据成功 202XX
     /**
-     * 操作异常！
+     * 用户创建成功！
      */
-    API_RESPONSE_ERROR(10500, "操作异常！", HttpStatus.HTTP_INTERNAL_ERROR),
+    API_RESPONSE_USER_CREATED(20101, "用户创建成功！", HttpStatus.HTTP_CREATED),
 
-    // 详细
-
-    // 用户注册、登录和权限
-    /**
-     * 退出成功！
-     */
-    API_RESPONSE_LOGOUT(10200, "退出成功！"),
-
+    // 权限成功 201XX
     /**
      * 退出成功！
      */
-    API_RESPONSE_USER_CREATED(10200, "用户创建成功！", HttpStatus.HTTP_CREATED),
+    API_RESPONSE_LOGOUT(20201, "退出成功！"),
 
+    // 客户端过程中问题 40XXX
+    /**
+    * 请求异常！
+    */
+    API_RESPONSE_BAD_REQUEST(40000, "请求异常！", HttpStatus.HTTP_BAD_REQUEST),
+
+    // 无法鉴权问题 401XX
     /**
      * 请先登录！
      */
-    API_RESPONSE_UNAUTHORIZED(10401, "请先登录！", HttpStatus.HTTP_UNAUTHORIZED),
+    API_RESPONSE_UNAUTHORIZED(40100, "请先登录！", HttpStatus.HTTP_UNAUTHORIZED),
 
+    // 缺少权限问题 403XX
     /**
-     * 暂无权限访问！
+     * 权限不足！
      */
-    API_RESPONSE_ACCESS_DENIED(10403, "权限不足！", HttpStatus.HTTP_FORBIDDEN),
-
+    API_RESPONSE_ACCESS_DENIED(40300, "权限不足！", HttpStatus.HTTP_FORBIDDEN),
     /**
      * 当前用户已被锁定，请联系管理员解锁！
      */
-    API_RESPONSE_USER_DISABLED(10403, "当前用户已被锁定，请联系管理员解锁！", HttpStatus.HTTP_FORBIDDEN),
-
-    /**
-     * 用户名或密码错误！
-     */
-    API_RESPONSE_USERNAME_PASSWORD_ERROR(15001, "用户名或密码错误！", HttpStatus.HTTP_BAD_REQUEST),
-
-    /**
-     * token 已过期，请重新登录！
-     */
-    API_RESPONSE_TOKEN_EXPIRED(15002, "token 已过期，请重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
-
-    /**
-     * token 解析失败，请尝试重新登录！
-     */
-    API_RESPONSE_TOKEN_PARSE_ERROR(15002, "token 解析失败，请尝试重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
-
-    /**
-     * 当前用户已在别处登录，请尝试更改密码或重新登录！
-     */
-    API_RESPONSE_TOKEN_OUT_OF_CTRL(15003, "当前用户已在别处登录，请尝试更改密码或重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
-
-    /**
-     * 无法手动踢出自己，请尝试退出登录操作！
-     */
-    API_RESPONSE_KICKOUT_SELF(15004, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR),
-
-    // 内容请求
-
-    /**
-     * 请求不存在！
-     */
-    API_RESPONSE_REQUEST_NOT_FOUND(10404, "请求不存在！", HttpStatus.HTTP_NOT_FOUND),
-
-    /**
-     * 请求方式不支持！
-     */
-    API_RESPONSE_HTTP_BAD_METHOD(10405, "请求方式不支持！", HttpStatus.HTTP_BAD_METHOD),
-
-    /**
-     * 请求异常！
-     */
-    API_RESPONSE_BAD_REQUEST(10400, "请求异常！", HttpStatus.HTTP_BAD_REQUEST),
-
-    /**
-     * 参数不匹配！
-     */
-    API_RESPONSE_PARAM_NOT_MATCH(10400, "参数不匹配！", HttpStatus.HTTP_BAD_REQUEST),
-
-    /**
-     * 参数不能为空！
-     */
-    API_RESPONSE_PARAM_NOT_NULL(10400, "参数不能为空！", HttpStatus.HTTP_BAD_REQUEST),
-
-
-
-    // 客户端数据不可用
+    API_RESPONSE_USER_DISABLED(40301, "当前用户已被锁定，请联系管理员解锁！", HttpStatus.HTTP_FORBIDDEN),
     /**
      * 用户已存在！
      */
-    API_RESPONSE_USER_EXISTED(15005, "用户已存在！", HttpStatus.HTTP_FORBIDDEN);
+    API_RESPONSE_USER_EXISTED(40311, "用户已存在！", HttpStatus.HTTP_FORBIDDEN),
+
+    // 请求内容错误 404XX
+    /**
+     * 请求不存在！
+     */
+    API_RESPONSE_REQUEST_NOT_FOUND(40400, "请求内容不存在！", HttpStatus.HTTP_NOT_FOUND),
+
+    // 请求方式越权 405XX
+    /**
+     * 请求方式不支持！
+     */
+    API_RESPONSE_HTTP_BAD_METHOD(40500, "请求方式不支持！", HttpStatus.HTTP_BAD_METHOD),
+
+    // 请求参数问题 406XX
+    /**
+     * 参数不符合要求！
+     */
+    API_RESPONSE_PARAM_BAD(40600, "参数不符合要求！", HttpStatus.HTTP_BAD_REQUEST),
+    /**
+     * 参数不能为空！
+     */
+    API_RESPONSE_PARAM_NOT_NULL(40601, "参数不能为空！", HttpStatus.HTTP_BAD_REQUEST),
+    /**
+     * 用户名或密码错误！
+     */
+    API_RESPONSE_USERNAME_PASSWORD_ERROR(40602, "用户名或密码错误！", HttpStatus.HTTP_BAD_REQUEST),
+
+
+    // 服务器过程中问题 50XXX
+    /**
+     * 操作异常！
+     */
+    API_RESPONSE_ERROR(50000, "操作异常！", HttpStatus.HTTP_INTERNAL_ERROR),
+
+    // 权限识别问题 501XX
+    /**
+     * token 已过期，请重新登录！
+     */
+    API_RESPONSE_TOKEN_EXPIRED(50102, "token 已过期，请重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
+    /**
+     * token 解析失败，请尝试重新登录！
+     */
+    API_RESPONSE_TOKEN_PARSE_ERROR(50103, "token 解析失败，请尝试重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
+
+    // 权限操作问题 502XX
+    /**
+     * 当前用户已在别处登录，请尝试更改密码或重新登录！
+     */
+    API_RESPONSE_TOKEN_OUT_OF_CTRL(50201, "当前用户已在别处登录，请尝试更改密码或重新登录！", HttpStatus.HTTP_INTERNAL_ERROR),
+    /**
+     * 无法手动踢出自己，请尝试退出登录操作！
+     */
+    API_RESPONSE_KICKOUT_SELF(50201, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR);
+
 
     /**
      * 状态码
