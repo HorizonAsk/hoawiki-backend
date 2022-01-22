@@ -77,6 +77,7 @@ MAIL_DOMAIN // 如someemail.com，用于和SMTP_USERNAME组合生成发件人地
 - 参考 http://mybatis.org/migrations/
 - 下载并按说明配置好使用migration命令的环境变量，对Windows用户而言，也可以直接使用`mybatis-migrations\bin\migrate.cmd`的绝对路径进行后续操作
 - 确认`src\main\resources\db\drivers\mysql-connector-java-8.0.27.jar`符合你的MySQL数据库要求（通常没有太大的问题）
+- 确认`src\main\resources\db\environments\development.properties`中的设置符合你的MySQL数据库连接参数（主要是用户名、密码、SCHEMA、port）
 - 在`src\main\resources\db`下您可以执行以下命令：
     - `mybatis-migrations\bin\migrate.cmd status` 检查当前数据库migration状态
     - `mybatis-migrations\bin\migrate.cmd up` 执行所有未执行的migration

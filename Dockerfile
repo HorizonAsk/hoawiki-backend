@@ -9,6 +9,7 @@ RUN gradle build
 FROM anapsix/alpine-java:latest
 
 ENV MYSQL_ADDRESS="localhost:3306"
+ENV MYSQL_SCHEMA=""
 ENV MYSQL_USERNAME=""
 ENV MYSQL_PASSWORD=""
 ENV SMTP_HOST=""
@@ -24,6 +25,7 @@ COPY --from=build-gradle /app/build/classes classes/
 
 ENTRYPOINT ["java","-jar","libs/hoawiki.jar"]
 CMD [
+"-DMYSQL_SCHEMA=${MYSQL_SCHEMA}",
 "-DMYSQL_ADDRESS=${MYSQL_ADDRESS}",
 "-DMYSQL_USERNAME=${MYSQL_USERNAME}",
 "-DMYSQL_PASSWORD=${MYSQL_PASSWORD}",

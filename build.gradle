@@ -37,7 +37,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter:2.6.2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation "org.mockito:mockito-core:4.2.0"
-    implementation 'cn.hutool:hutool-all:5.7.18'
+    implementation 'cn.hutool:hutool-all:5.7.19'
     implementation 'org.springframework.boot:spring-boot-starter-web:2.6.2'
     implementation 'org.springframework.boot:spring-boot-devtools:2.6.2'
     implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.3.4'
@@ -48,15 +48,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security:2.6.2'
     implementation "javax.validation:validation-api"
     implementation "org.springframework.boot:spring-boot-starter-mail"
-}
-
-docker {
-    springBootApplication {
-        baseImage = 'anapsix/alpine-java:latest'
-        maintainer = "Horizonask Group"
-        ports = [8085]
-        jvmArgs = ['-DMYSQL_ADDRESS=' + "${System.env.MYSQL_ADDRESS}", '-DMYSQL_USERNAME=' + "${System.env.MYSQL_USERNAME}", '-DMYSQL_PASSWORD=' + "${System.env.MYSQL_PASSWORD}"]
-    }
 }
 
 test {
