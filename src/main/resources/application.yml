@@ -31,7 +31,7 @@ mail:
   from: ${spring.mail.username}@${mail.domain}
 
 mybatis-plus:
-  type-enums-package: package top.horizonask.hoawiki.authentication.entity
+  type-enums-package: package top.horizonask.hoawiki.authorization.entity
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
 
