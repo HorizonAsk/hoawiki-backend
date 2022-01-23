@@ -1,0 +1,40 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+    - name: Build with Gradle
+      env:
+        MYSQL_SCHEMA: ${{ secrets.test.MYSQL_SCHEMA}}
+        MYSQL_ADDRESS: ${{ secrets.test.MYSQL_ADDRESS}}
+        MYSQL_USERNAME: ${{ secrets.test.MYSQL_USERNAME}}
+        MYSQL_PASSWORD: ${{ secrets.test.MYSQL_PASSWORD}}
+        SMTP_HOST: ${{ secrets.test.SMTP_HOST}}
+        SMTP_USERNAME: ${{ secrets.test.SMTP_USERNAME}}
+        SMTP_PASSWORD: ${{ secrets.test.SMTP_PASSWORD}}
+        MAIL_DOMAIN: ${{ secrets.test.MAIL_DOMAIN}}
+      uses: gradle/gradle-build-action@4137be6a8bf7d7133955359dbd952c0ca73b1021
+      with:
+        arguments: build -DMYSQL_SCHEMA=${MYSQL_SCHEMA} -DMYSQL_ADDRESS=${MYSQL_ADDRESS} -DMYSQL_USERNAME=${MYSQL_USERNAME} -DMYSQL_PASSWORD=${MYSQL_PASSWORD} -DSMTP_HOST=${SMTP_HOST}" -DSMTP_USERNAME=${SMTP_USERNAME} -DSMTP_PASSWORD=${SMTP_PASSWORD} -DMAIL_DOMAIN=${MAIL_DOMAIN}
