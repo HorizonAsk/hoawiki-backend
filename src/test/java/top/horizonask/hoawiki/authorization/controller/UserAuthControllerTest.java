@@ -2,9 +2,9 @@ package top.horizonask.hoawiki.authorization.controller;
 
 import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.validation.BindingResult;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsImpl;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsServiceImpl;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Slf4j
 public class UserAuthControllerTest {
@@ -45,7 +45,7 @@ public class UserAuthControllerTest {
     @Mock
     private BindingResult bindingResultHasError;
 
-    @Before
+    @BeforeEach
     public void setup() {
         UserDetailsImpl user = new UserDetailsImpl();
         user.setUserId(1L);
