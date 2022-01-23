@@ -25,6 +25,8 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: check the files
+      run: ls -l
     - name: Build with Gradle
       env:
         MYSQL_SCHEMA: ${{ secrets.test.MYSQL_SCHEMA}}
