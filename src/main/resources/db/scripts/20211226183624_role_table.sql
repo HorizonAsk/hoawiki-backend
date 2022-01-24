@@ -11,7 +11,7 @@ CREATE TABLE `roles`
     UNIQUE INDEX `role_id_UNIQUE` (`role_id` ASC) VISIBLE,
     PRIMARY KEY (`role_id`),
     UNIQUE INDEX `role_name_UNIQUE` (`role_name` ASC) VISIBLE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- //@UNDO
 -- SQL to undo the change goes here.

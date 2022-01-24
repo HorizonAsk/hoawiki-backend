@@ -8,8 +8,9 @@ CREATE TABLE `pages`
     `create_time` TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP,
     `delete_time` TIMESTAMP    NULL DEFAULT NULL,
     `update_time` TIMESTAMP    NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`page_id`)
-);
+    PRIMARY KEY (`page_id`),
+    FULLTEXT KEY `fulltext_page_title` (`page_title`) WITH PARSER ngram
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- //@UNDO
 -- SQL to undo the change goes here.

@@ -17,7 +17,7 @@ CREATE TABLE `users`
     UNIQUE INDEX `user_id_UNIQUE` (`user_id` ASC) VISIBLE,
     UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
     UNIQUE INDEX `token_UNIQUE` (`remember_token` ASC) VISIBLE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- //@UNDO
 -- SQL to undo the change goes here.

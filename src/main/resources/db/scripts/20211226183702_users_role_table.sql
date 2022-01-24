@@ -17,8 +17,7 @@ CREATE TABLE `users_role`
             REFERENCES `users` (`user_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
-);
-
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- //@UNDO
 -- SQL to undo the change goes here.
 

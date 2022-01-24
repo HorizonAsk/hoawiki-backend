@@ -19,7 +19,7 @@ CREATE TABLE `page_categories`
             REFERENCES `categories` (`cat_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- //@UNDO
 -- SQL to undo the change goes here.

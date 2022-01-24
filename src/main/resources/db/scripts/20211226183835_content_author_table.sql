@@ -3,7 +3,7 @@
 
 CREATE TABLE `content_authors`
 (
-    `content_authors_id` BIGINT    NOT NULL,
+    `content_authors_id` BIGINT    NOT NULL AUTO_INCREMENT,
     `content_id`         BIGINT    NULL,
     `user_id`            BIGINT    NULL,
     `create_time`        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -21,7 +21,7 @@ CREATE TABLE `content_authors`
             REFERENCES `users` (`user_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- //@UNDO
 -- SQL to undo the change goes here.

@@ -31,6 +31,10 @@ mail:
   from: ${spring.mail.username}@${mail.domain}
 
 mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-value: "now()"
+      logic-not-delete-value: "null"
   type-enums-package: package top.horizonask.hoawiki.authorization.entity
   configuration:
     default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
