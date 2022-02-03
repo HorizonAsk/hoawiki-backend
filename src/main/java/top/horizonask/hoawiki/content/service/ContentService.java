@@ -12,6 +12,16 @@ import java.util.List;
  */
 
 public interface ContentService extends IService<Content> {
+
+    /**
+     * <b>Contents</b>
+     * <p>Get latest page content by page id.</p>
+     *
+     * @param pageId page id to get latest content.
+     * @return top.horizonask.hoawiki.content.entity.Content
+     */
+    Content getPageLatestContentById(Long pageId);
+
     /**
      * Get all authors of one content
      *

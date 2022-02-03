@@ -21,6 +21,11 @@ public enum ApiStatus implements IStatus {
      */
     API_RESPONSE_USER_CREATED(20101, "用户创建成功！", HttpStatus.HTTP_CREATED),
 
+    /**
+     * 内容创建成功！
+     */
+    API_RESPONSE_CONTENT_CREATED(20102, "内容创建成功！", HttpStatus.HTTP_CREATED),
+
     // 权限成功 201XX
     /**
      * 退出成功！
@@ -52,6 +57,10 @@ public enum ApiStatus implements IStatus {
      * 用户已存在！
      */
     API_RESPONSE_USER_EXISTED(40311, "用户已存在！", HttpStatus.HTTP_FORBIDDEN),
+    /**
+     * 内容已存在！
+     */
+    API_RESPONSE_CONTENT_EXISTED(40321, "类似内容已存在！请确认是否强制新建！", HttpStatus.HTTP_FORBIDDEN),
 
     // 请求内容错误 404XX
     /**
@@ -104,8 +113,10 @@ public enum ApiStatus implements IStatus {
     /**
      * 无法手动踢出自己，请尝试退出登录操作！
      */
-    API_RESPONSE_KICKOUT_SELF(50201, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR);
+    API_RESPONSE_KICKOUT_SELF(50201, "无法手动踢出自己，请尝试退出登录操作！", HttpStatus.HTTP_INTERNAL_ERROR),
 
+    // 数据库过程问题 503XX
+    API_RESPONSE_DATABASE_ERROR(50300,"数据库过程异常，请稍后重试！",HttpStatus.HTTP_INTERNAL_ERROR);
 
     /**
      * 状态码

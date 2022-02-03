@@ -11,7 +11,7 @@ CREATE TABLE `page_categories`
     INDEX `fk_page_cat_cat_id_idx` (`cat_id` ASC) VISIBLE,
     CONSTRAINT `fk_page_cat_page_id`
         FOREIGN KEY (`page_id`)
-            REFERENCES `pages` (`page_id`)
+            REFERENCES `concept_pages` (`page_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT `fk_page_cat_cat_id`

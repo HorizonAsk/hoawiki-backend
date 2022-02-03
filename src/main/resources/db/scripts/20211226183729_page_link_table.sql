@@ -11,12 +11,12 @@ CREATE TABLE `page_links`
     INDEX `fk_page_links_page_to_idx` (`page_to` ASC) VISIBLE,
     CONSTRAINT `fk_page_links_page_from`
         FOREIGN KEY (`page_from`)
-            REFERENCES `pages` (`page_id`)
+            REFERENCES `concept_pages` (`page_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT `fk_page_links_page_to`
         FOREIGN KEY (`page_to`)
-            REFERENCES `pages` (`page_id`)
+            REFERENCES `concept_pages` (`page_id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -10,15 +10,15 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * @description: Page entity stores page item data.
+ * @description: ConceptPage entity stores page item data.
  * @author: Yanbo Han
  * @time: 2022/1/23 23:26
  */
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName(value = "pages")
-public class Page extends Model<Page> {
+@TableName(value = "concept_pages")
+public class ConceptPage extends Model<ConceptPage> {
     @TableId(value = "page_id", type = IdType.AUTO)
     private Long pageId;
 
@@ -37,11 +37,22 @@ public class Page extends Model<Page> {
 
     public JSONObject getJson() {
         JSONObject data = JSONUtil.createObj();
-        Boolean available = this.available();
-        data.set("available", available).set("pageId", this.getPageId());
+        boolean available = this.available();
+        data.set("pageId", this.getPageId());
         if (available) {
-            data.set("pageTitle", this.getPageTitle());
+            data.set("pageTitle", this.getPageTitle())
+                    .set("updateTime", this.getUpdateTime());
         }
+        return data;
+    }
+
+    public JSONObject getJsonofDeleted() {
+        JSONObject data = JSONUtil.createObj();
+        Boolean available = this.available();
+        data.set("available", available)
+                .set("pageId", this.getPageId())
+                .set("pageTitle", this.getPageTitle())
+                .set("deleteTime", this.getUpdateTime());
         return data;
     }
 

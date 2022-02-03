@@ -1,7 +1,7 @@
 -- // data_pages
 -- Migration SQL that makes the change goes here.
 
-INSERT INTO `spring-test`.`pages` (`page_title`)
+INSERT INTO `concept_pages` (`page_title`)
 VALUES ('关于HOA'),
        ('中国'),
        ('中国历史'),
@@ -14,7 +14,10 @@ VALUES ('关于HOA'),
        ('物理'),
        ('化学物理'),
        ('😊'),
-       ('About HOA');
+       ('About HOA'),
+       ('😊😊'),
+       ('😊😊😊'),
+       ('😊😊😊😊');
 
 
 -- //@UNDO

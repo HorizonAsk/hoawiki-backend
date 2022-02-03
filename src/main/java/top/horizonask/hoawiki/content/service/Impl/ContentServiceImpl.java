@@ -27,7 +27,20 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     }
 
     /**
-     * Get all authors of one content
+     * <b>Get Contents</b>
+     * <p>Get latest page content by page id.</p>
+     *
+     * @param pageId page id to get latest content.
+     * @return top.horizonask.hoawiki.content.entity.Content
+     */
+    @Override
+    public Content getPageLatestContentById(Long pageId) {
+        return contentMapper.getLatestContent(pageId);
+    }
+
+    /**
+     * <b>Get content authors</b>
+     * <p>Get all authors of one content</p>
      *
      * @param contentId content id to match
      * @return java.util.List<top.horizonask.hoawiki.content.entity.User>
@@ -38,7 +51,8 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     }
 
     /**
-     * Get all content id list of page id
+     * <b>Get all Content</b>
+     * <p>Get all content id list of page id</p>
      *
      * @param pageId page id to match
      * @return java.util.List<top.horizonask.hoawiki.content.entity.Content>
@@ -47,4 +61,6 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     public List<Content> getAllContentByPageId(Long pageId) {
         return contentMapper.getAllContentsOfPage(pageId);
     }
+
+
 }

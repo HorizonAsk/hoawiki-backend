@@ -1,7 +1,7 @@
 -- // data_page_contents
 -- Migration SQL that makes the change goes here.
 
-INSERT INTO `spring-test`.`page_contents` (`page_id`, `content_id`)
+INSERT INTO `page_contents` (`page_id`, `content_id`)
 VALUES ('1', '1'),
        ('1', '2'),
        ('8', '4'),

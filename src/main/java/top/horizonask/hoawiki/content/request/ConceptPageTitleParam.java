@@ -11,8 +11,8 @@ import javax.validation.constraints.Size;
  */
 
 @Data
-public class NewPageRequest {
-    @NotBlank(message = "页面名不能为空")
-    @Size(max = 200, message = "页面名过长")
+public class ConceptPageTitleParam {
+    @NotBlank(message = "页面名再短也不能啥都没有啊(・∀・(・∀・?)")
+    @Size(max = 200, message = "名字太长啦Σ(っ °Д °;)っ")
     private String pageTitle;
 }
