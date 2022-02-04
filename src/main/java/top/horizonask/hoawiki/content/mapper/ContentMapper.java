@@ -35,8 +35,8 @@ public interface ContentMapper extends BaseMapper<Content> {
             "FROM page_contents " +
             "where page_id=#{pageId}" +
             ") " +
-            "AND deleted_time is null " + // not deleted
-            "ORDER BY created_time desc,content_id desc " +
+            "AND delete_time is null " + // not deleted
+            "ORDER BY create_time desc,content_id desc " +
             "LIMIT 1")
     Content getLatestContent(@Param("pageId") Long pageId);
 
@@ -55,8 +55,8 @@ public interface ContentMapper extends BaseMapper<Content> {
             "FROM page_contents " +
             "where page_id=#{pageId}" +
             ") " +
-            "AND deleted_time is null "+ // not deleted"
-            "ORDER BY created_time desc,content_id desc")
+            "AND delete_time is null "+ // not deleted"
+            "ORDER BY create_time desc,content_id desc")
     List<Content> getAllContentsOfPage(@Param("pageId") Long pageId); // TODO: split select result to pages.
 
     /**

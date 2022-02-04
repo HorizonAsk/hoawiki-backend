@@ -1,7 +1,9 @@
 package top.horizonask.hoawiki.content.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.transaction.annotation.Transactional;
 import top.horizonask.hoawiki.authorization.entity.User;
+import top.horizonask.hoawiki.common.ApiStatus;
 import top.horizonask.hoawiki.content.entity.Content;
 
 import java.util.List;
@@ -37,4 +39,15 @@ public interface ContentService extends IService<Content> {
      * @return java.util.List<top.horizonask.hoawiki.content.entity.Content>
      */
     List<Content> getAllContentByPageId(Long pageId);
+
+    /**
+     * <b>Create Content for page</b>
+     * <p>Get all content id list of page id</p>
+     *
+     * @param newContent new content of the page
+     * @param pageId id of page to create content
+     * @return top.horizonask.hoawiki.common.ApiStatus
+     */
+    @Transactional
+    ApiStatus createContentOfPage(Content newContent, Long pageId);
 }

@@ -5,8 +5,8 @@ CREATE TABLE `contents`
 (
     `content_id`   BIGINT    NOT NULL AUTO_INCREMENT,
     `content_text` LONGTEXT  NULL,
-    `created_time` TIMESTAMP NULL     DEFAULT CURRENT_TIMESTAMP,
-    `deleted_time` TIMESTAMP NULL,
+    `create_time` TIMESTAMP NULL     DEFAULT CURRENT_TIMESTAMP,
+    `delete_time` TIMESTAMP NULL,
     PRIMARY KEY (`content_id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

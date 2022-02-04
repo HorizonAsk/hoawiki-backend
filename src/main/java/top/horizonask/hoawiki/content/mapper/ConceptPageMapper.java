@@ -12,6 +12,16 @@ import top.horizonask.hoawiki.content.entity.ConceptPage;
 @Mapper
 public interface ConceptPageMapper extends BaseMapper<ConceptPage> {
 
+    /**
+     * Get latest updated pages.
+     *
+     * @param page pagination
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<top.horizonask.hoawiki.content.entity.ConceptPage>
+     */
+    @Select("SELECT page_id,page_title,update_time " +
+            "FROM concept_pages " +
+            "ORDER BY update_time desc")
+    IPage<ConceptPage> getLatestPages(Page<ConceptPage> page);
 
     /**
      * Using match against for fulltext match. Only use for more than one word.
@@ -101,4 +111,16 @@ public interface ConceptPageMapper extends BaseMapper<ConceptPage> {
             "SET delete_time=null,update_time=now() " +
             "WHERE page_id=#{pageId}")
     boolean recoverById(@Param("pageId") Long pageId);
+
+    /**
+     * <b>Update time</b>
+     * <p>update a page's time by id</p>
+     *
+     * @param pageId pageId to update
+     * @return boolean
+     */
+    @Update("UPDATE concept_pages " +
+            "SET update_time=now() " +
+            "WHERE page_id=#{pageId}")
+    int updateTimeById(@Param("pageId") Long pageId);
 }

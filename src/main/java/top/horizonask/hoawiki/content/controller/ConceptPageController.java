@@ -14,6 +14,7 @@ import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.common.ValidateUtils;
 import top.horizonask.hoawiki.content.entity.ConceptPage;
 import top.horizonask.hoawiki.content.request.ConceptPageTitleParam;
+import top.horizonask.hoawiki.content.request.PaginationParam;
 import top.horizonask.hoawiki.content.request.SearchPageParam;
 import top.horizonask.hoawiki.content.service.Impl.ConceptPageServiceImpl;
 import top.horizonask.hoawiki.content.service.Impl.ContentServiceImpl;
@@ -37,7 +38,29 @@ public class ConceptPageController {
         this.contentServiceImpl = contentServiceImpl;
     }
 
-    @GetMapping("/search/")
+    @GetMapping("/pages")
+    public ResponseEntity<JSONObject> latestPage(@Valid PaginationParam paginationParam,
+                                                 BindingResult validResult) {
+        if (validResult.hasErrors()) {
+            ResponseUtils responseUtils = ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD);
+            for (FieldError error : validResult.getFieldErrors()) {
+                responseUtils.accumulate("error", JSONUtil.createObj().set(error.getField(), error.getDefaultMessage()));
+            }
+            return responseUtils.toResponseEntity();
+        }
+        IPage<ConceptPage> conceptPages = conceptPageServiceImpl.listPageByUpdated(paginationParam.getCurrentPageLong());
+        ResponseUtils responseUtils = ResponseUtils.success()
+//                .data("totalPages", conceptPages.getPages()) // page number
+//                .data("totalItems", conceptPages.getTotal()) // item number
+                ;
+        for (ConceptPage conceptPage : conceptPages.getRecords()) {
+            JSONObject pageItem = conceptPage.getJson();
+            responseUtils.accumulate("pageItems", pageItem); // page items
+        }
+        return responseUtils.toResponseEntity();
+    }
+
+    @GetMapping("/search")
     public ResponseEntity<JSONObject> searchPage(@Valid SearchPageParam searchPageParam,
                                                  BindingResult validResult) {
         if (validResult.hasErrors()) {
@@ -49,8 +72,9 @@ public class ConceptPageController {
         }
         IPage<ConceptPage> conceptPages = conceptPageServiceImpl.searchPageByName(searchPageParam.getSearchKeyWord(), searchPageParam.getCurrentPageLong());
         ResponseUtils responseUtils = ResponseUtils.success()
-                .data("totalPages", conceptPages.getPages()) // page number
-                .data("totalItems", conceptPages.getTotal()); // item number
+//                .data("totalPages", conceptPages.getPages()) // page number
+//                .data("totalItems", conceptPages.getTotal()) // item number
+                ;
         for (ConceptPage conceptPage : conceptPages.getRecords()) {
             JSONObject pageItem = conceptPage.getJson();
             responseUtils.accumulate("pageItems", pageItem); // page items

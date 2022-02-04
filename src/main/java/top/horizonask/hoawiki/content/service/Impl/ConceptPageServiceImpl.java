@@ -24,10 +24,25 @@ public class ConceptPageServiceImpl extends ServiceImpl<ConceptPageMapper, Conce
 
     private final ConceptPageMapper conceptPageMapper;
 
-    private final int pageSize = 2;
+    private final int pageSize = 10;
 
     public ConceptPageServiceImpl(ConceptPageMapper conceptPageMapper) {
         this.conceptPageMapper = conceptPageMapper;
+    }
+
+    /**
+     * <b>List ConceptPage by update time</b>
+     * <p>For fulltext match. Only use for more than one word.</p>
+     * <p>For single word searching like "中"， ”上“， ”下“,
+     * will automatically use {@link ConceptPageService#searchPageBySingleWord}.</p>
+     *
+     * @param currentPage page-number
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<top.horizonask.hoawiki.content.entity.ConceptPage>
+     */
+    @Override
+    public IPage<ConceptPage> listPageByUpdated(Long currentPage) {
+        Page<ConceptPage> page = new Page<>(currentPage, pageSize);
+        return conceptPageMapper.getLatestPages(page);
     }
 
     /**
