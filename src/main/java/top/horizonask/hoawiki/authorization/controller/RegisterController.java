@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,7 @@ import top.horizonask.hoawiki.authorization.mapper.UserMapper;
 import top.horizonask.hoawiki.authorization.mapper.UsersRoleMapper;
 import top.horizonask.hoawiki.common.ApiStatus;
 import top.horizonask.hoawiki.common.ResponseUtils;
-import top.horizonask.hoawiki.common.request.RegisterRequest;
+import top.horizonask.hoawiki.authorization.request.RegisterRequest;
 
 import javax.validation.Valid;
 
@@ -43,7 +44,7 @@ public class RegisterController {
         this.usersRoleMapper = usersRoleMapper;
     }
 
-    @RequestMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<JSONObject> user(@Valid @RequestBody RegisterRequest registerRequest, BindingResult validResult) {
         if (validResult.hasErrors()) {
             ResponseUtils responseUtils = ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD);

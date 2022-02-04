@@ -17,7 +17,7 @@ import org.springframework.validation.BindingResult;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsImpl;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsServiceImpl;
 import top.horizonask.hoawiki.common.ApiStatus;
-import top.horizonask.hoawiki.common.request.LoginRequest;
+import top.horizonask.hoawiki.authorization.request.LoginRequest;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package top.horizonask.hoawiki.common.request;
+package top.horizonask.hoawiki.authorization.request;
 
 import lombok.Data;
 

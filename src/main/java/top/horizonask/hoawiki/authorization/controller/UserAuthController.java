@@ -10,21 +10,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import top.horizonask.hoawiki.authorization.mapper.RoleMapper;
-import top.horizonask.hoawiki.authorization.mapper.UserMapper;
 import top.horizonask.hoawiki.authorization.security.JWTTokenUtil;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsImpl;
 import top.horizonask.hoawiki.authorization.security.services.UserDetailsServiceImpl;
 import top.horizonask.hoawiki.common.ApiStatus;
 import top.horizonask.hoawiki.common.ResponseUtils;
-import top.horizonask.hoawiki.common.request.LoginRequest;
+import top.horizonask.hoawiki.authorization.request.LoginRequest;
 
 import javax.validation.Valid;
 
@@ -42,7 +39,7 @@ public class UserAuthController {
 
     UserDetailsServiceImpl userDetailsServiceImpl;
 
-    public UserAuthController(AuthenticationManager authenticationManager, UserMapper userMapper, UserDetailsServiceImpl userDetailsServiceImpl, RoleMapper roleMapper, PasswordEncoder passwordEncoder) {
+    public UserAuthController(AuthenticationManager authenticationManager, UserDetailsServiceImpl userDetailsServiceImpl) {
         this.authenticationManager = authenticationManager;
         this.userDetailsServiceImpl = userDetailsServiceImpl;
     }

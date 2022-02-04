@@ -32,7 +32,7 @@ public class UserInfoController {
         this.permissionMapper = permissionMapper;
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseUtils userSelfInfoApi(@PathVariable Long id) {
         User user = userMapper.selectById(id);
         if (user == null) {
@@ -73,7 +73,7 @@ public class UserInfoController {
     }
 
     @PreAuthorize(value="hasRole('user')")
-    @RequestMapping("/search/{username}")
+    @GetMapping("/search/{username}")
     public ResponseUtils userSearchApi(@PathVariable String username) {
         List<User> userList = userMapper.findByUsername(username);
         if (userList.size() == 0) {

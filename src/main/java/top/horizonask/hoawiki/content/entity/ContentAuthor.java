@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 import java.time.LocalDateTime;
 
 /**
- * @description: Page entity stores page item data.
+ * @description: ConceptPage entity stores page item data.
  * @author: Yanbo Han
  * @time: 2022/1/23 23:26
  */
