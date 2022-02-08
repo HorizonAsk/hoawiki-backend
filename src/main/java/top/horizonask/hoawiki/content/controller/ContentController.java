@@ -7,10 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import top.horizonask.hoawiki.authorization.entity.User;
+import top.horizonask.hoawiki.authorization.service.UserServiceImpl;
 import top.horizonask.hoawiki.common.ApiStatus;
 import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.common.ValidateUtils;
 import top.horizonask.hoawiki.content.entity.Content;
+import top.horizonask.hoawiki.content.mapper.ContentAuthorMapper;
 import top.horizonask.hoawiki.content.request.NewContentRequest;
 import top.horizonask.hoawiki.content.service.Impl.ConceptPageServiceImpl;
 import top.horizonask.hoawiki.content.service.Impl.ContentServiceImpl;
@@ -29,26 +32,32 @@ public class ContentController {
 
     final ContentServiceImpl contentServiceImpl;
 
-    public ContentController(ConceptPageServiceImpl conceptPageServiceImpl, ContentServiceImpl contentServiceImpl) {
+    final UserServiceImpl userServiceImpl;
+
+    final ContentAuthorMapper contentAuthorMapper;
+
+    public ContentController(ConceptPageServiceImpl conceptPageServiceImpl, ContentServiceImpl contentServiceImpl, UserServiceImpl userServiceImpl, ContentAuthorMapper contentAuthorMapper) {
         this.conceptPageServiceImpl = conceptPageServiceImpl;
         this.contentServiceImpl = contentServiceImpl;
+        this.userServiceImpl = userServiceImpl;
+        this.contentAuthorMapper = contentAuthorMapper;
     }
 
     @GetMapping("/{pageId}/contents/latest")
     public ResponseEntity<JSONObject> getPageLatestContent(@PathVariable String pageId) {
         if (ValidateUtils.wrongRequestPageId(pageId)) {
-            return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
-                    .message("页面ID格式错误")
-                    .toResponseEntity();
+            return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD).message("页面ID格式错误").toResponseEntity();
         }
         Content content = contentServiceImpl.getPageLatestContentById(Long.valueOf(pageId));
         if (content != null) {
-            return ResponseUtils.success()
-                    .data(content.getJson())
-                    .toResponseEntity();
+            ResponseUtils res = ResponseUtils.success();
+            res.data(content.getJson());
+            for(Long userId:contentAuthorMapper.getAuthorsIdsOfContent(content.getContentId())){
+                res.accumulate("authors",userServiceImpl.getUserBriefInfo(userId));
+            }
+            return res.toResponseEntity();
         } else {
-            return ResponseUtils.fail(ApiStatus.API_RESPONSE_REQUEST_NOT_FOUND, "尚无可用内容")
-                    .toResponseEntity();
+            return ResponseUtils.fail(ApiStatus.API_RESPONSE_REQUEST_NOT_FOUND, "尚无可用内容").toResponseEntity();
         }
     }
 
@@ -62,9 +71,7 @@ public class ContentController {
             return responseUtils.toResponseEntity();
         }
         if (ValidateUtils.wrongRequestPageId(pageId)) {
-            return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
-                    .message("页面ID格式错误")
-                    .toResponseEntity();
+            return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD).message("页面ID格式错误").toResponseEntity();
         }
         Content newContent = new Content();
         newContent.setContentText(newContentRequest.getContentText());

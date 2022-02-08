@@ -17,5 +17,5 @@ public interface ContentAuthorMapper extends BaseMapper<ContentAuthor> {
      * @return java.util.List<top.horizonask.hoawiki.content.entity.ContentAuthor>
      **/
     @Select("SELECT user_id FROM content_authors where content_id=#{contentId}")
-    List<Integer> getAuthorsOfContent(@Param("contentId") Long contentId);
+    List<Long> getAuthorsIdsOfContent(@Param("contentId") Long contentId);
 }

@@ -70,7 +70,7 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
      */
     @Override
     public List<User> getContentAuthorsByContentId(Long contentId) {
-        return userMapper.selectBatchIds(contentAuthorMapper.getAuthorsOfContent(contentId));
+        return userMapper.selectBatchIds(contentAuthorMapper.getAuthorsIdsOfContent(contentId));
     }
 
     /**
