@@ -50,6 +50,18 @@ public class ContentServiceImpl extends ServiceImpl<ContentMapper, Content> impl
     }
 
     /**
+     * <b>Contents</b>
+     * <p>Get the <b>first part</b> of latest page content by page id.</p>
+     *
+     * @param pageId page id to get latest content.
+     * @return top.horizonask.hoawiki.content.entity.Content
+     */
+    @Override
+    public Content getPageLatestContentBriefById(Long pageId) {
+        return contentMapper.getLatestContentBrief(pageId);
+    }
+
+    /**
      * <b>Get content authors</b>
      * <p>Get all authors of one content</p>
      *

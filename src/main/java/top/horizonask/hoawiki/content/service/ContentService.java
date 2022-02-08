@@ -25,6 +25,15 @@ public interface ContentService extends IService<Content> {
     Content getPageLatestContentById(Long pageId);
 
     /**
+     * <b>Contents</b>
+     * <p>Get the <b>first part</b> of latest page content by page id.</p>
+     *
+     * @param pageId page id to get latest content.
+     * @return top.horizonask.hoawiki.content.entity.Content
+     */
+    Content getPageLatestContentBriefById(Long pageId);
+
+    /**
      * Get all authors of one content
      *
      * @param contentId content id to match

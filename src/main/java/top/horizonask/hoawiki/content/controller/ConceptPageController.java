@@ -13,6 +13,7 @@ import top.horizonask.hoawiki.common.ApiStatus;
 import top.horizonask.hoawiki.common.ResponseUtils;
 import top.horizonask.hoawiki.common.ValidateUtils;
 import top.horizonask.hoawiki.content.entity.ConceptPage;
+import top.horizonask.hoawiki.content.entity.Content;
 import top.horizonask.hoawiki.content.request.ConceptPageTitleParam;
 import top.horizonask.hoawiki.content.request.PaginationParam;
 import top.horizonask.hoawiki.content.request.SearchPageParam;
@@ -27,7 +28,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("/page/")
+@RequestMapping("/pages")
 public class ConceptPageController {
     final ConceptPageServiceImpl conceptPageServiceImpl;
 
@@ -38,7 +39,7 @@ public class ConceptPageController {
         this.contentServiceImpl = contentServiceImpl;
     }
 
-    @GetMapping("/pages")
+    @GetMapping("")
     public ResponseEntity<JSONObject> latestPage(@Valid PaginationParam paginationParam,
                                                  BindingResult validResult) {
         if (validResult.hasErrors()) {
@@ -55,6 +56,12 @@ public class ConceptPageController {
                 ;
         for (ConceptPage conceptPage : conceptPages.getRecords()) {
             JSONObject pageItem = conceptPage.getJson();
+            Content content = contentServiceImpl.getPageLatestContentBriefById(conceptPage.getPageId());
+            if (content != null) {
+                pageItem.set("content",content.getContentText());
+            } else {
+                pageItem.set("content",null);
+            }
             responseUtils.accumulate("pageItems", pageItem); // page items
         }
         return responseUtils.toResponseEntity();
@@ -82,7 +89,7 @@ public class ConceptPageController {
         return responseUtils.toResponseEntity();
     }
 
-    @GetMapping("/id/{pageId}")
+    @GetMapping("/{pageId}")
     public ResponseEntity<JSONObject> getPageById(@PathVariable String pageId) {
         if(ValidateUtils.wrongRequestPageId(pageId)){
             return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
@@ -101,7 +108,7 @@ public class ConceptPageController {
         }
     }
 
-    @PutMapping("/id/{pageId}/recover")
+    @PutMapping("/{pageId}/recover")
     public ResponseEntity<JSONObject> recoverPageById(@PathVariable String pageId) {
         if(ValidateUtils.wrongRequestPageId(pageId)){
             return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
@@ -117,7 +124,7 @@ public class ConceptPageController {
         }
     }
 
-    @DeleteMapping("/id/{pageId}")
+    @DeleteMapping("/{pageId}")
     public ResponseEntity<JSONObject> deletePageById(@PathVariable String pageId) {
         if(ValidateUtils.wrongRequestPageId(pageId)){
             return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
@@ -132,7 +139,7 @@ public class ConceptPageController {
         return ResponseUtils.success().toResponseEntity();
     }
 
-    @PostMapping("/new")
+    @PostMapping("/")
     @PreAuthorize(value = "hasRole('user')")
     public ResponseEntity<JSONObject> createPage(@Valid @RequestBody ConceptPageTitleParam conceptPageTitleParam, boolean force, BindingResult validResult) {
         if (validResult.hasErrors()) {

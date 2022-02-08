@@ -23,7 +23,7 @@ import javax.validation.Valid;
  */
 @Slf4j
 @RestController
-@RequestMapping("/page/")
+@RequestMapping("/pages")
 public class ContentController {
     final ConceptPageServiceImpl conceptPageServiceImpl;
 
@@ -34,7 +34,7 @@ public class ContentController {
         this.contentServiceImpl = contentServiceImpl;
     }
 
-    @GetMapping("/id/{pageId}/content")
+    @GetMapping("/{pageId}/contents/latest")
     public ResponseEntity<JSONObject> getPageLatestContent(@PathVariable String pageId) {
         if (ValidateUtils.wrongRequestPageId(pageId)) {
             return ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD)
@@ -52,7 +52,7 @@ public class ContentController {
         }
     }
 
-    @PostMapping("/id/{pageId}/content")
+    @PostMapping("/{pageId}/contents")
     public ResponseEntity<JSONObject> newPageContent(@PathVariable String pageId, @Valid @RequestBody NewContentRequest newContentRequest, BindingResult validResult) {
         if (validResult.hasErrors()) {
             ResponseUtils responseUtils = ResponseUtils.fail(ApiStatus.API_RESPONSE_PARAM_BAD);
