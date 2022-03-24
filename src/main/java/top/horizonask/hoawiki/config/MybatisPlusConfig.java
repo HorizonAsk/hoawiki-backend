@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
  * @time: 2022/2/3 1:03
  */
 @Configuration
-@MapperScan("top.horizonask.hoawiki.*.mapper")
 public class MybatisPlusConfig {
 
     @Bean
