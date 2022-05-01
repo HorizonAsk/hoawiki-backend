@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.2.0](https://github.com/HorizonAsk/hoawiki-backend/compare/0.1.0...v0.2.0) (2022-05-01)
+
+
+### Features
+
+* **page brief:** A new POST method for getting multiple page abstracts. ([693aa01](https://github.com/HorizonAsk/hoawiki-backend/commit/693aa017067ff8de42fcdcb1e51ab171cdd57207))
+* **pagelink:** A new GET method for recursively getting page link relationships. ([55f4cbc](https://github.com/HorizonAsk/hoawiki-backend/commit/55f4cbc5d35993e22f62ad23c32a0f79cf30f185))
+* **pagelink:** New pagelink GET and POST methods. ([9c53b96](https://github.com/HorizonAsk/hoawiki-backend/commit/9c53b96a58a6dda6402b6206f31ee56c4e189e82))
+
 ## 0.1.0-alpha.4 (2022-03-22)
 
 ### Bug Fixes
@@ -28,4 +37,3 @@
 ### Chores
 
 - Setup semantic git log plugin to generate changelog.md ([527814cb](https://github.com/HorizonAsk/hoawiki-backend/commit/527814cb1d512c0c1cda6cd02bc587301c74897e))
-
